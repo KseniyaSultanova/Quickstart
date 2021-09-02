@@ -38,7 +38,6 @@ public class CrmTest {
 
         Select curator = new Select(driver.findElement(By.name("crm_project[curator]")));
         curator.selectByVisibleText("Ким Юрий");
-        //crm_project[manager]
 
         Select projectManager = new Select(driver.findElement(By.name("crm_project[rp]")));
         projectManager.selectByVisibleText("Гатов Фёдор");
