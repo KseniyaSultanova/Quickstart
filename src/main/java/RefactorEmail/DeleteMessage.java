@@ -20,7 +20,7 @@ public class DeleteMessage {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginEmail();
         deleteMassage();
-        DragDrop();
+        DragDropMessage();
         driver.get("https://e.mail.ru/tomyself/");
     }
 
@@ -48,7 +48,7 @@ public class DeleteMessage {
 
     }
 
-    public static void DragDrop() {
+    public static void DragDropMessage() {
 
         WebElement From = driver.findElement(By.xpath("//div[@class='llc__item llc__item_correspondent llc__item_unread']"));
 

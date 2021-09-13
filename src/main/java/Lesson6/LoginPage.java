@@ -1,5 +1,6 @@
 package Lesson6;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,16 +18,17 @@ public class LoginPage {
     @FindBy(xpath = "//button")
     public WebElement clickLoginButton;
 
+    @Step("заполнить поле логина")
     public LoginPage fillInputLogin(String login){
         inputLogin.sendKeys(login);
         return this;
     }
-
+@Step("заполнить поле пароль")
     public LoginPage fillInputPassword(String password){
         inputPassword.sendKeys(password);
         return this;
     }
-
+@Step("кликнуть кнопку войти")
     public LoginPage clickLoginButton(){
         clickLoginButton.click();
         return this;

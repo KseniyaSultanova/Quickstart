@@ -1,12 +1,11 @@
 package Lesson6;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoginPageMailRu {
-    WebDriver driver;
+public class LoginPageMailRu extends BasePage {
 
     @FindBy(xpath = "//input[@name='username']")
     public WebElement inputLoginEmail;
@@ -20,10 +19,15 @@ public class LoginPageMailRu {
     @FindBy(xpath = "//button")
     public WebElement clickButtonTwo;
 
+    public LoginPageMailRu(WebDriver driver) {
+        super(driver);
+    }
 
+    @Step("Ввод данных в поле логин")
     public void fillInputLoginEmail(String login){
         inputLoginEmail.sendKeys(login);
     }
+    @Step("Ввод данных в поле пароль")
     public void fillInputPasswordEmail(String password){
         inputPasswordEmail.sendKeys(password);
     }
@@ -36,8 +40,6 @@ public class LoginPageMailRu {
 
     }
 
-    public LoginPageMailRu(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
+
     }
-}
+

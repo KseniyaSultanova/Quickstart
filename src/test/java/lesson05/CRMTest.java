@@ -2,6 +2,8 @@ package lesson05;
 
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class CRMTest {
@@ -33,6 +39,7 @@ public class CRMTest {
     }
 
     @Test
+    @Step("Создание нового контактного лица")
     void createContactPersonTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         Thread.sleep(3000);
@@ -62,6 +69,7 @@ public class CRMTest {
 
 
     @Test
+    @Step("Создание нового проекта")
     void createNewProjectTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -98,6 +106,12 @@ public class CRMTest {
     @AfterEach
         //после каждого теста,будем выполнять метод quit (закрытие браузера)
     void tearDown() {
+        LogEntries browserConsoleLogs = driver.manage().logs().get(LogType.BROWSER);
+        Iterator<LogEntry> iterator = browserConsoleLogs.iterator();
+
+        while (iterator.hasNext()) {
+            Allure.addAttachment("Элемент лога браузера", iterator.next().getMessage());
+        }
         driver.quit();
     }
 

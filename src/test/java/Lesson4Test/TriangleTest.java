@@ -1,5 +1,6 @@
 package Lesson4Test;
 
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,16 @@ static void beforeAll(){
 }
 
     @Test
+
     public void isTriangleTest(){
         double result = AreaTriangle(3,4,5);
+        Assertions.assertEquals(6.00, result);
+
+    }
+@Test
+@Description("Негативный тест")
+    public void isTriangleTest2(){
+        double result = AreaTriangle2(-3,14,0);
         Assertions.assertEquals(6.00, result);
 
     }
@@ -30,4 +39,9 @@ static void beforeAll(){
         return AreaTriangle;
     }
 
+    public double AreaTriangle2 (double a, double b, double c) {
+        double p = (a + b + c) / 2;
+        double AreaTriangle2 = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+        return AreaTriangle2;
+    }
 }
