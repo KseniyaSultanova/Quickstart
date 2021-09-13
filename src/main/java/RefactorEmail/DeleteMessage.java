@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class DeleteMessage {
@@ -21,6 +20,7 @@ public class DeleteMessage {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginEmail();
         deleteMassage();
+        DragDrop();
         driver.get("https://e.mail.ru/tomyself/");
     }
 
@@ -37,18 +37,28 @@ public class DeleteMessage {
     }
 
     public static void deleteMassage() throws InterruptedException {
-        driver.get("https://e.mail.ru/tomyself/");
+        driver.get("https://e.mail.ru/inbox/?authid=kst0m4n5.4kj&back=1%2C1&dwhsplit=s10273.b1ss12743s&from=login&x-login-auth=1&afterReload=1");
         Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='nav__folder-name__txt']")).click();
 
+        Thread.sleep(5000);
         Actions actions = new Actions(driver);
-        WebElement clickMenuElement = driver.findElement(By.xpath("//span[contains(@class,'button2__explanation') and text()='Выделить все']"));
-        actions.moveToElement(clickMenuElement).click();
-        actions.click(clickMenuElement).perform();
-//здесь мне так и не удалось найти решение,для того, чтобы бы произвелось действие клика на кнопку.
+        actions.moveToElement(driver.findElements(By.xpath("//a[contains(@class, 'letter-bottom')]")).get(0))
+                .click(driver.findElements(By.xpath("//div[@class='checkbox__box checkbox__box_disabled']")).get(0)).perform();
+        Thread.sleep(5000);
 
-        Thread.sleep(3000);
     }
 
+    public static void DragDrop() {
 
+        WebElement From = driver.findElement(By.xpath("//div[@class='llc__item llc__item_correspondent llc__item_unread']"));
+
+         WebElement To = driver.findElement(By.xpath("//a[6]/div/div[2]/div"));
+
+        Actions act = new Actions(driver);
+
+        act.dragAndDrop(From, To).build().perform();
+    }
 }
+
+
+
